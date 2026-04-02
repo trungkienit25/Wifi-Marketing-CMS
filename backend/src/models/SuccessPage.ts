@@ -17,6 +17,7 @@ export interface ISuccessPage extends Document {
     driveId?: string;
     originalUrl?: string;
     optimizedUrl: string; // Cloudinary or R2 URL
+    fallbackBase64?: string; // New DR field
   };
   partnerAds: IPartnerAd[];
   strategyType: 'WeightedRandom' | 'Geo' | 'FillRate';
@@ -50,6 +51,7 @@ const SuccessPageSchema = new Schema<ISuccessPage>(
       driveId: { type: String },
       originalUrl: { type: String },
       optimizedUrl: { type: String, required: true },
+      fallbackBase64: { type: String }, // NEW: Fallback string
     },
     partnerAds: [PartnerAdSchema],
     strategyType: {

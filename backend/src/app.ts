@@ -5,6 +5,8 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
 import brandRoutes from './routes/Brand.routes.js';
+import assetRoutes from './routes/Asset.routes.js';
+import trackingRoutes from './routes/Tracking.routes.js';
 
 dotenv.config();
 
@@ -17,6 +19,8 @@ app.use(express.json());
 
 // Routes
 app.use('/api/v1/brands', brandRoutes);
+app.use('/api/v1/assets', assetRoutes);
+app.use('/api/v1/track', trackingRoutes);
 
 // Database Connection
 const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/wifi_marketing';
