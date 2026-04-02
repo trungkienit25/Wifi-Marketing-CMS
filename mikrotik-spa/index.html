@@ -1,10 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>mikrotik-spa</title>
+    <title>WiFi Marketing - Logging in...</title>
+    
+    <!-- MIKROTIK CONTEXT INJECTION: Don't edit variable names ($(v))! -->
+    <script>
+      window.MIKROTIK_CONTEXT = {
+        mac: "$(mac)",
+        ip: "$(ip)",
+        username: "$(username)",
+        linkLoginOnly: "$(link-login-only)",
+        linkOrig: "$(link-orig)",
+        error: "$(error)",
+        chapId: "$(chap-id)",
+        chapChallenge: "$(chap-challenge)",
+        isLoggedIn: "$(if-login-done)" === "yes"
+      };
+    </script>
   </head>
   <body>
     <div id="app"></div>
