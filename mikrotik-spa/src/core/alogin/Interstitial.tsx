@@ -4,11 +4,10 @@ import { ApiService } from '../ApiService';
 interface InterstitialProps {
   ad: any;
   mac: string;
-  fp?: string;
-  brandId?: string;
+  fp: string;
 }
 
-export function Interstitial({ ad, mac, fp, brandId }: InterstitialProps) {
+export function Interstitial({ ad, mac, fp }: InterstitialProps) {
   const tracked = useRef(false);
 
   useEffect(() => {

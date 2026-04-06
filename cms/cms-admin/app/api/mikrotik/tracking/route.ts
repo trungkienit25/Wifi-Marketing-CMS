@@ -16,7 +16,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Ghi nhận vào Document tổng hợp của Brand
-    const updated = await prisma.advertisement.update({
+    // SỬ DỤNG updateMany để tránh lỗi 500 khi gặp quán giả lập (Mock Brands)
+    await prisma.advertisement.updateMany({
       where: { brandId },
       data: {
         [type === 'impression' ? 'impressions' : 'clicks']: {
@@ -28,8 +29,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ 
       success: true, 
       brandId, 
-      type, 
-      currentCount: type === 'impression' ? (updated as any).impressions : (updated as any).clicks 
+      type
     }, {
       headers: { "Access-Control-Allow-Origin": "*" } // CORS cho MikroTik
     });

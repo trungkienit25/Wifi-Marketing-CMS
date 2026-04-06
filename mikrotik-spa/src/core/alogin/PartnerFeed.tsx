@@ -130,7 +130,7 @@ export const PartnerFeed = memo(({ ads, loading, mac, fp }: PartnerFeedProps) =>
     <div className="vertical-feed">
       {ads && ads.length > 0 ? (
         ads.map((ad: any, i: number) => (
-          <AdCard key={ad.id || i} ad={ad} mac={mac} fp={fp} index={i} />
+          <AdCard key={`${ad.brandId}-${ad.id || i}-${i}`} ad={ad} mac={mac} fp={fp} index={i} />
         ))
       ) : (
         /* FALLBACK MOCK PARTNERS (For Zero-Config or Network Delay) */
