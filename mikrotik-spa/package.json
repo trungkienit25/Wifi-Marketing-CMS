@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:all": "node scripts/build.js",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -14,8 +15,9 @@
   "devDependencies": {
     "@preact/preset-vite": "^2.10.4",
     "@types/node": "^24.12.0",
+    "cross-env": "^10.1.0",
     "typescript": "~5.9.3",
-    "vite": "^8.0.1",
+    "vite": "^6.0.0",
     "vite-plugin-singlefile": "^2.3.2"
   }
 }

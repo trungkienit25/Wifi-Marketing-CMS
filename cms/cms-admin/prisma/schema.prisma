@@ -1,0 +1,155 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// --- NEXTAUTH MODELS ---
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model VerificationToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// --- MIKROTIK MULTI-TENANT MODELS ---
+
+model MikrotikConfig {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  brandId     String   @unique
+  brandName   String
+  gatewayIp   String   // Encrypted at Server-side
+  dnsName     String?
+  apiUsername String   // Encrypted at Server-side
+  apiPassword String   // Encrypted at Server-side
+  apiPort     Int      @default(8728)
+  status      String   @default("active") // active, inactive
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Advertisement {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  brandId     String   @unique
+  bannerUrl   String
+  redirectUrl String?
+  strategy    String   @default("WeightedRandom") 
+  ads         Json?    // Array of partner ads
+  active      Boolean  @default(true)
+  impressions Int      @default(0)
+  clicks      Int      @default(0)
+  metadata    Json?    // Impressions, clicks summary
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model GlobalSettings {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  masterOverride    Boolean  @default(false)
+  interstitialBanner String?
+  interstitialUrl    String?
+  seedDataTemplate  Json?
+  auditLog          Json?
+  updatedAt         DateTime @updatedAt
+}
+
+// --- PROJECT MERGE (From bancong_landing_backend) ---
+
+model Service {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  lang  String  
+  title String
+  icon  String
+  image String
+  desc  String
+}
+
+model Gallery {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  url   String
+}
+
+model BlogPost {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  originalId Int     @unique 
+  title    String
+  date     String
+  time     String
+  tags     String   
+  author   String
+  content  String
+  image    String
+  summary  String
+  category String
+}
+
+model MenuItem {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  cat_vi            String?
+  cat_en            String?
+  item_type_vi      String?
+  item_type_en      String?
+  dish_name_vi      String?
+  dish_name_en      String?
+  price             String?
+  desc_vi           String?
+  desc_en           String?
+  image_url         String? 
+  container_type_vi String?
+  container_type_en String?
+}
+
+model About {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  lang        String  @unique 
+  heading     String
+  description String
+}
+
+model Settings {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  key   String  @unique
+  value String
+}

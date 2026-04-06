@@ -6,18 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WiFi Marketing - Logging in...</title>
     
-    <!-- MIKROTIK CONTEXT INJECTION: Don't edit variable names ($(v))! -->
+    <!-- MIKROTIK CONTEXT INJECTION: Essential for Multi-tenant identification -->
     <script>
       window.MIKROTIK_CONTEXT = {
-        mac: "$(mac)",
+        mac: "$(mac)", // Infrastructure Identity
+        hostname: "$(hostname)", // Router Identity (Used for brand mapping)
         ip: "$(ip)",
-        username: "$(username)",
-        linkLoginOnly: "$(link-login-only)",
-        linkOrig: "$(link-orig)",
-        error: "$(error)",
-        chapId: "$(chap-id)",
-        chapChallenge: "$(chap-challenge)",
-        isLoggedIn: "$(if-login-done)" === "yes"
+        linkOrig: "$(link-orig)", // Original requested URL
+        isLoggedIn: "$(if-login-done)" === "yes", // Authorized state detection
+        error: "$(error)"
       };
     </script>
   </head>

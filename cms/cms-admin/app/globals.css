@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+/* 1. ÉP CỨNG BIẾN MÀU THÀNH MÀU SÁNG CHO MẶC ĐỊNH */
+:root {
+  --background: #F8FAFC !important; 
+  --foreground: #0F172A !important;
+}
+
+/* 2. ÉP LUÔN CẢ TRƯỜNG HỢP MÁY TÍNH BẬT DARK MODE (Vô hiệu hóa Dark Mode) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #F8FAFC !important;
+    --foreground: #0F172A !important;
+  }
+}
+
+/* 3. SET THẲNG VÀO THẺ BODY VỚI ĐỘ ƯU TIÊN CAO NHẤT (!important) */
+html, body {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+/* Tùy chỉnh thanh cuộn (Scrollbar) cho đẹp */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
