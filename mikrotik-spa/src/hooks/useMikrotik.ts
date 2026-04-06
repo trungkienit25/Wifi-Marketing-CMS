@@ -11,7 +11,7 @@ export interface MikroTikContext {
 
 const MOCK_CONTEXT: MikroTikContext = {
   mac: '1A:2B:3C:4D:5E:6F',
-  hostname: 'lalot_restroom',
+  hostname: 'lalot',
   ip: '192.168.88.254',
   linkOrig: 'https://google.com',
   isLoggedIn: false, // Start with unauthorized for testing
